@@ -14,16 +14,32 @@ if %ERRORLEVEL% equ 0 (
     exit /b 0
 )
 
-:: Check default user Python install
-if exist "%LOCALAPPDATA%\Programs\Python\Python312\pythonw.exe" (
-    start "" "%LOCALAPPDATA%\Programs\Python\Python312\pythonw.exe" "%TARGET_SCRIPT%"
+:: Check pyw (standard Python Launcher) in system PATH
+where pyw >nul 2>nul
+if %ERRORLEVEL% equ 0 (
+    start "" pyw "%TARGET_SCRIPT%"
     exit /b 0
+)
+
+:: Check common local Python installs
+for %%V in (Python313 Python312 Python311 Python310) do (
+    if exist "%LOCALAPPDATA%\Programs\Python\%%V\pythonw.exe" (
+        start "" "%LOCALAPPDATA%\Programs\Python\%%V\pythonw.exe" "%TARGET_SCRIPT%"
+        exit /b 0
+    )
 )
 
 :: Fallback: Search python in system PATH
 where python >nul 2>nul
 if %ERRORLEVEL% equ 0 (
     start "" python "%TARGET_SCRIPT%"
+    exit /b 0
+)
+
+:: Fallback: Search py in system PATH
+where py >nul 2>nul
+if %ERRORLEVEL% equ 0 (
+    start "" py "%TARGET_SCRIPT%"
     exit /b 0
 )
 

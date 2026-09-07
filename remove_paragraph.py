@@ -1086,7 +1086,7 @@ body {
     </button>
     <div id="status-bar" class="comic-status-bar" style="background:#111116;color:#ffffff;">
       <span id="status-icon" class="status-icon">💬</span>
-      <span id="status-text" class="status-text" style="color:#ffffff;">READY FOR INFILTRATION  -  AWAITING COMMAND</span>
+      <span id="status-text" class="status-text" style="color:#ffffff;">READY FOR INFILTRATION - AWAITING COMMAND</span>
     </div>
   </div>
 
@@ -1577,7 +1577,7 @@ async function copyResult() {
   const text = boxResult.value;
   if (!text) {
     playErrorBuzz();
-    setStatus("⚠️ Nothing to copy yet  -  execute removal first!", "error", "⚠️");
+    setStatus("⚠️ Nothing to copy yet - execute removal first!", "error", "⚠️");
     return;
   }
 
@@ -1828,7 +1828,7 @@ def run_tkinter_p5():
     box_target.bind("<KeyRelease>", update_radar)
 
     # Action bar
-    status_var = tk.StringVar(value="💬 READY FOR INFILTRATION  -  AWAITING COMMAND")
+    status_var = tk.StringVar(value="💬 READY FOR INFILTRATION - AWAITING COMMAND")
     status_frame = tk.Frame(root, bg=P5_BLACK)
     status_frame.pack(fill="x", padx=16, pady=6)
 
@@ -1892,7 +1892,7 @@ def run_tkinter_p5():
             root.after(1200, lambda: btn_copy.config(bg=P5_YELLOW, text="📋 COPY RESULT TO CLIPBOARD [CTRL+SHIFT+C]"))
         else:
             play_sound("error")
-            status_var.set("⚠️ Nothing to copy yet  -  execute removal first.")
+            status_var.set("⚠️ Nothing to copy yet - execute removal first.")
             status_label.config(fg=P5_RED)
 
     btn_copy = tk.Button(
@@ -2069,11 +2069,10 @@ def main():
         )
         bridge.set_window(window)
 
-        start_kwargs = {"gui": "edgechromium"}
         if icon_path:
-            start_kwargs["icon"] = icon_path
-
-        webview.start(**start_kwargs)
+            webview.start(gui="edgechromium", icon=icon_path)
+        else:
+            webview.start(gui="edgechromium")
     except Exception as e:
         # Fallback gracefully to Tkinter P5 UI if pywebview or WebView2 fails
         print(f"[Persona 5] Webview initialization note: {e}. Launching fallback GUI...")
